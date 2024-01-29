@@ -1,11 +1,10 @@
-
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -61,6 +60,13 @@ public class patientServlet extends HttpServlet {
 			int reff = stmt.executeUpdate();
 			if(reff > 0) {
 				System.out.println("Inserted successfully!");
+			}
+			
+			PreparedStatement rest=conn.prepareStatement("select * from patient");
+			
+			rs=rest.executeQuery();
+			while(rs.next()){
+				System.out.println("id : "+rs.getString(1)+" name : "+rs.getString(2));
 			}
 			
 		} catch (Exception e) {
